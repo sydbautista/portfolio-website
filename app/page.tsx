@@ -93,7 +93,7 @@ export default function Home() {
           <a href="#story" onClick={() => setMenuOpen(false)}>Story</a>
           <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
           <a href="#stack" onClick={() => setMenuOpen(false)}>Stack</a>
-          <a className="nav-cta" href="/Syd-Bautista-CV-2026.pdf" download>Download CV <Arrow /></a>
+          <a className="nav-cta" href="https://www.linkedin.com/in/sydbautista/" target="_blank" rel="noreferrer">View LinkedIn <span aria-hidden="true">↗</span></a>
         </div>
       </nav>
 
