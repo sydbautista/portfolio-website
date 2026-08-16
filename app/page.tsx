@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const roles = [
   {
@@ -9,6 +9,7 @@ const roles = [
     company: "Fujitsu Philippines",
     copy: "Led a cross-functional team from responsive AngularJS interfaces through EWS-powered integrations and automated testing.",
     tags: ["AngularJS", "Java", "EWS", "Selenium"],
+    highlights: ["Led a cross-functional delivery team", "Designed responsive admin and user experiences", "Built EWS APIs for scheduling and notes", "Introduced Selenium and unit-test automation"],
   },
   {
     year: "2019 — 2022",
@@ -16,6 +17,7 @@ const roles = [
     company: "DXC Technology",
     copy: "Built progressive web apps, data visualization tools, and scalable full-stack platforms while guiding multiple delivery teams.",
     tags: ["Angular", "Spring Boot", "D3.js", "Azure"],
+    highlights: ["Delivered client and internal progressive web apps", "Built data processing and visualization experiences", "Guided scalable solutions across multiple teams", "Created documentation that accelerated onboarding"],
   },
   {
     year: "2022 — NOW",
@@ -23,6 +25,7 @@ const roles = [
     company: "Willis Towers Watson",
     copy: "Shapes front-end architecture, shared component systems, performance, and application security across enterprise products.",
     tags: ["Angular", "Blazor", ".NET", "Design systems"],
+    highlights: ["Leads front-end architecture and framework strategy", "Created reusable Angular modules and component libraries", "Partners with UX and backend teams on performance", "Resolves security findings across the delivery lifecycle"],
   },
 ];
 
@@ -56,11 +59,12 @@ const projects = [
   },
 ];
 
+const icon = (slug: string) => `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}/${slug}-original.svg`;
 const stackGroups = [
-  { name: "Interfaces", items: ["Angular", "React", "Vue.js", "Blazor", "Tailwind CSS"] },
-  { name: "Logic", items: ["C#", "Java", "Python", ".NET", "Spring Boot"] },
-  { name: "Intelligence", items: ["Semantic Kernel", "Azure OpenAI", "D3.js", "OCR"] },
-  { name: "Cloud + Quality", items: ["AWS", "Azure", "GitHub", "Checkmarx", "Snyk"] },
+  { name: "Interfaces", items: [{ name: "Angular", icon: icon("angular") }, { name: "React", icon: icon("react") }, { name: "Vue.js", icon: icon("vuejs") }, { name: "Blazor", icon: icon("blazor") }, { name: "Tailwind CSS", icon: icon("tailwindcss") }] },
+  { name: "Logic", items: [{ name: "C#", icon: icon("csharp") }, { name: "Java", icon: icon("java") }, { name: "Python", icon: icon("python") }, { name: ".NET", icon: icon("dotnetcore") }, { name: "Spring Boot", icon: icon("spring") }] },
+  { name: "Intelligence", items: [{ name: "Semantic Kernel" }, { name: "Azure OpenAI", icon: icon("azure") }, { name: "D3.js", icon: icon("d3js") }, { name: "OCR" }] },
+  { name: "Cloud + Quality", items: [{ name: "AWS", icon: icon("amazonwebservices") }, { name: "Azure", icon: icon("azure") }, { name: "GitHub", icon: icon("github") }, { name: "Checkmarx" }, { name: "Snyk" }] },
 ];
 
 function Arrow({ direction = "right" }: { direction?: "left" | "right" }) {
@@ -68,7 +72,6 @@ function Arrow({ direction = "right" }: { direction?: "left" | "right" }) {
 }
 
 export default function Home() {
-  const trackRef = useRef<HTMLDivElement>(null);
   const [activeRole, setActiveRole] = useState(2);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -80,12 +83,6 @@ export default function Home() {
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, []);
-
-  const goToRole = (index: number) => {
-    const next = Math.max(0, Math.min(roles.length - 1, index));
-    setActiveRole(next);
-    trackRef.current?.children[next]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-  };
 
   return (
     <main>
@@ -125,13 +122,22 @@ export default function Home() {
       <section className="career" aria-labelledby="career-title">
         <div className="section-head" data-reveal>
           <div><p className="section-index">02 / CAREER PROGRESSION</p><h2 id="career-title">Built in chapters.<br /><span>Always moving forward.</span></h2></div>
-          <div className="carousel-controls"><button onClick={() => goToRole(activeRole - 1)} aria-label="Previous role" disabled={activeRole === 0}><Arrow direction="left" /></button><span>{String(activeRole + 1).padStart(2, "0")} / 03</span><button onClick={() => goToRole(activeRole + 1)} aria-label="Next role" disabled={activeRole === 2}><Arrow /></button></div>
+          <p className="timeline-instruction">SELECT A MILESTONE TO EXPLORE</p>
         </div>
-        <div className="timeline-line"><span style={{ width: `${((activeRole + 1) / roles.length) * 100}%` }} /></div>
-        <div className="career-track" ref={trackRef}>
-          {roles.map((item, index) => <article className={`role-card ${activeRole === index ? "active" : ""}`} key={item.company} onClick={() => setActiveRole(index)}>
-            <div className="role-number">0{index + 1}</div><p>{item.year}</p><h3>{item.role}</h3><h4>{item.company}</h4><div className="role-divider" /><p className="role-copy">{item.copy}</p><div className="tag-row">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
-          </article>)}
+        <div className="experience-explorer" data-reveal>
+          <div className="timeline-rail" role="tablist" aria-label="Career timeline">
+            {roles.map((item, index) => <button role="tab" aria-selected={activeRole === index} aria-controls="experience-map" className={`timeline-stop ${activeRole === index ? "active" : ""}`} key={item.company} onClick={() => setActiveRole(index)}>
+              <span className="timeline-dot"><i /></span><span className="timeline-date">{item.year}</span><strong>{item.company}</strong><small>{item.role}</small>
+            </button>)}
+          </div>
+          <div className="mind-map" id="experience-map" role="tabpanel" aria-live="polite" key={activeRole}>
+            <div className="map-grid" aria-hidden="true" />
+            <div className="map-center"><span>{roles[activeRole].year}</span><strong>{roles[activeRole].company}</strong><small>{roles[activeRole].role}</small></div>
+            <div className="map-branches">
+              {roles[activeRole].highlights.map((highlight, index) => <div className={`map-node node-${index + 1}`} key={highlight}><span>0{index + 1}</span><p>{highlight}</p></div>)}
+            </div>
+            <div className="map-summary"><p>{roles[activeRole].copy}</p><div className="tag-row">{roles[activeRole].tags.map(tag => <span key={tag}>{tag}</span>)}</div></div>
+          </div>
         </div>
       </section>
 
@@ -146,7 +152,7 @@ export default function Home() {
       <section className="stack" id="stack">
         <div className="stack-heading" data-reveal><p className="section-index">04 / THE TOOLKIT</p><h2>A stack that adapts.<br /><span>A mindset that scales.</span></h2><p>Tools change. The ability to choose, connect, and shape them is the real technology.</p></div>
         <div className="stack-grid">
-          {stackGroups.map((group, index) => <div className="stack-group" key={group.name} data-reveal><div className="stack-number">0{index + 1}</div><h3>{group.name}</h3><div>{group.items.map(item => <span key={item}>{item}</span>)}</div></div>)}
+          {stackGroups.map((group, index) => <div className="stack-group" key={group.name} data-reveal><div className="stack-number">0{index + 1}</div><h3>{group.name}</h3><div className="stack-items">{group.items.map(item => <div className={`tech-item ${item.icon ? "has-icon" : "text-only"}`} key={item.name}>{item.icon && <img src={item.icon} alt="" loading="lazy" />}<span>{item.name}</span><i aria-hidden="true" /></div>)}</div></div>)}
         </div>
         <div className="learning" data-reveal><span className="pulse" /><p>CURRENTLY EXPLORING</p><strong>Deeper React patterns · Semantic Kernel · Applied Python</strong></div>
       </section>
