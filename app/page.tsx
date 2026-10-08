@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import SignalGame from "./signal-game";
 
 const roles = [
   {
@@ -93,6 +94,7 @@ export default function Home() {
           <a href="#story" onClick={() => setMenuOpen(false)}>Story</a>
           <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
           <a href="#stack" onClick={() => setMenuOpen(false)}>Stack</a>
+          <a href="#play" onClick={() => setMenuOpen(false)}>Play</a>
           <a className="nav-cta" href="https://www.linkedin.com/in/sydbautista/" target="_blank" rel="noreferrer">View LinkedIn <span aria-hidden="true">↗</span></a>
         </div>
       </nav>
@@ -103,7 +105,7 @@ export default function Home() {
           <p className="eyebrow">UI SYSTEMS ENGINEER · MANILA</p>
           <h1>I engineer the<br /><span>way ideas feel.</span></h1>
           <p className="hero-intro">I’m Syd Bautista — a front-end specialist building scalable systems, intuitive products, and intelligent experiences.</p>
-          <div className="hero-actions"><a className="primary-button" href="#work">Explore my work <Arrow /></a><a className="text-link" href="#story">Follow the story <span>↓</span></a></div>
+          <div className="hero-actions"><a className="primary-button" href="#work">Explore my work <Arrow /></a><a className="text-link" href="#play">Try the mini game <span>↗</span></a></div>
         </div>
         <div className="scroll-cue"><span>SCROLL TO EXPLORE</span><i /></div>
       </section>
@@ -156,6 +158,8 @@ export default function Home() {
         </div>
         <div className="learning" data-reveal><span className="pulse" /><p>CURRENTLY EXPLORING</p><strong>Deeper React patterns · Semantic Kernel · Applied Python</strong></div>
       </section>
+
+      <SignalGame />
 
       <footer>
         <div className="footer-glow" />
