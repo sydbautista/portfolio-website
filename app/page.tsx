@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import StoryAdventure from "./story-adventure";
+import { PropertyPreview, SkinPreview } from "./project-previews";
 
 const roles = [
   {
@@ -57,7 +58,7 @@ const projects = [
     copy: "A central intelligence layer for property portfolios, combining OCR, visual analytics, and location context into one clear view.",
     stack: "Vue.js · Ruby on Rails · AWS · Google Maps",
     tone: "project-grid",
-    visual: <div className="data-demo" aria-hidden="true"><div className="map-dot d1" /><div className="map-dot d2" /><div className="map-dot d3" /><span className="bar b1" /><span className="bar b2" /><span className="bar b3" /><span className="bar b4" /></div>,
+    visual: <PropertyPreview />,
   },
   {
     number: "03",
@@ -66,7 +67,7 @@ const projects = [
     copy: "A clinic-ready web experience using image-based machine learning to help identify acne-prone areas and accelerate assessments.",
     stack: "Vue.js · Python · Azure",
     tone: "project-orbit",
-    visual: <div className="scan-demo" aria-hidden="true"><div className="face-orbit"><span /><i /><b /></div><small>analysis complete</small></div>,
+    visual: <SkinPreview />,
   },
 ];
 
