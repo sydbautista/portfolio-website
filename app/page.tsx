@@ -133,22 +133,21 @@ export default function Home() {
       <section className="career" aria-labelledby="career-title">
         <div className="section-head" data-reveal>
           <div><p className="section-index">02 / CAREER PROGRESSION</p><h2 id="career-title">Built in chapters.<br /><span>Always moving forward.</span></h2></div>
-          <p className="timeline-instruction">SELECT A MILESTONE TO EXPLORE</p>
+          <p className="timeline-instruction">OPEN A CHAPTER TO EXPLORE</p>
         </div>
-        <div className="experience-explorer" data-reveal>
-          <div className="timeline-rail" role="tablist" aria-label="Career timeline">
-            {roles.map((item, index) => <button role="tab" aria-selected={activeRole === index} aria-controls="experience-map" className={`timeline-stop ${activeRole === index ? "active" : ""}`} key={item.company} onClick={() => setActiveRole(index)}>
-              <span className="timeline-dot"><i /></span><span className="timeline-date">{item.year}</span><strong>{item.company}</strong><small>{item.role}</small>
-            </button>)}
-          </div>
-          <div className="mind-map" id="experience-map" role="tabpanel" aria-live="polite" key={activeRole}>
-            <div className="map-grid" aria-hidden="true" />
-            <div className="map-center"><span>{roles[activeRole].year}</span><strong>{roles[activeRole].company}</strong><small>{roles[activeRole].role}</small></div>
-            <div className="map-branches">
-              {roles[activeRole].highlights.map((highlight, index) => <div className={`map-node node-${index + 1}`} key={highlight}><span>0{index + 1}</span><p>{highlight}</p></div>)}
+        <div className="career-chapters" data-reveal>
+          {roles.map((item, index) => <article className={`career-chapter ${activeRole === index ? "is-open" : ""}`} key={item.company}>
+            <h3><button type="button" id={`career-trigger-${index}`} aria-expanded={activeRole === index} aria-controls={`career-details-${index}`} onClick={() => setActiveRole(activeRole === index ? -1 : index)}>
+              <span className="chapter-number">0{index + 1}</span>
+              <span className="chapter-heading"><strong>{item.company}</strong><small>{item.role}</small></span>
+              <span className="chapter-period">{item.year}</span>
+              <span className="chapter-toggle" aria-hidden="true">{activeRole === index ? "−" : "+"}</span>
+            </button></h3>
+            <div id={`career-details-${index}`} role="region" aria-labelledby={`career-trigger-${index}`} hidden={activeRole !== index} className="chapter-details">
+              <div className="chapter-overview"><p className="chapter-kicker">THE CHAPTER</p><p className="chapter-copy">{item.copy}</p><div className="tag-row">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div>
+              <ul className="chapter-highlights">{item.highlights.map((highlight, highlightIndex) => <li key={highlight}><span>0{highlightIndex + 1}</span><p>{highlight}</p></li>)}</ul>
             </div>
-            <div className="map-summary"><p>{roles[activeRole].copy}</p><div className="tag-row">{roles[activeRole].tags.map(tag => <span key={tag}>{tag}</span>)}</div></div>
-          </div>
+          </article>)}
         </div>
       </section>
 
