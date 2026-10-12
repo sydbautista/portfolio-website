@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PropertyPreview, SkinPreview, QueryResults } from "./project-previews";
 
 const roles = [
@@ -84,6 +84,8 @@ function Arrow({ direction = "right" }: { direction?: "left" | "right" }) {
 
 export default function Home() {
   const [activeRole, setActiveRole] = useState(2);
+  const careerTouch = useRef<{ x: number; y: number } | null>(null);
+  const moveCareer = (direction: number) => setActiveRole(current => (current + direction + roles.length) % roles.length);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -133,21 +135,22 @@ export default function Home() {
       <section className="career" aria-labelledby="career-title">
         <div className="section-head" data-reveal>
           <div><p className="section-index">02 / CAREER PROGRESSION</p><h2 id="career-title">Built in chapters.<br /><span>Always moving forward.</span></h2></div>
-          <p className="timeline-instruction">OPEN A CHAPTER TO EXPLORE</p>
+          <p className="timeline-instruction">THREE CHAPTERS. ONE CONTINUOUS JOURNEY.</p>
         </div>
-        <div className="career-chapters" data-reveal>
-          {roles.map((item, index) => <article className={`career-chapter ${activeRole === index ? "is-open" : ""}`} key={item.company}>
-            <h3><button type="button" id={`career-trigger-${index}`} aria-expanded={activeRole === index} aria-controls={`career-details-${index}`} onClick={() => setActiveRole(activeRole === index ? -1 : index)}>
-              <span className="chapter-number">0{index + 1}</span>
-              <span className="chapter-heading"><strong>{item.company}</strong><small>{item.role}</small></span>
-              <span className="chapter-period">{item.year}</span>
-              <span className="chapter-toggle" aria-hidden="true">{activeRole === index ? "−" : "+"}</span>
-            </button></h3>
-            <div id={`career-details-${index}`} role="region" aria-labelledby={`career-trigger-${index}`} hidden={activeRole !== index} className="chapter-details">
-              <div className="chapter-overview"><p className="chapter-kicker">THE CHAPTER</p><p className="chapter-copy">{item.copy}</p><div className="tag-row">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div>
-              <ul className="chapter-highlights">{item.highlights.map((highlight, highlightIndex) => <li key={highlight}><span>0{highlightIndex + 1}</span><p>{highlight}</p></li>)}</ul>
+        <div className="career-carousel" role="region" aria-roledescription="carousel" aria-label="Career chapters" data-reveal onKeyDown={event => { if (event.key === "ArrowLeft" || event.key === "ArrowRight") { event.preventDefault(); moveCareer(event.key === "ArrowRight" ? 1 : -1); } }}>
+          <div className="career-carousel-nav">
+            <div className="career-chapter-pickers">{roles.map((item, index) => <button type="button" aria-label={`Show ${item.company} chapter`} aria-current={activeRole === index ? "true" : undefined} className={activeRole === index ? "active" : ""} key={item.company} onClick={() => setActiveRole(index)}><span>0{index + 1}</span><small>{item.year}</small></button>)}</div>
+            <div className="career-arrows"><button type="button" aria-label="Previous career chapter" onClick={() => moveCareer(-1)}>←</button><button type="button" aria-label="Next career chapter" onClick={() => moveCareer(1)}>→</button></div>
+          </div>
+          <div className="career-slide-window" onTouchStart={event => { const touch = event.touches[0]; careerTouch.current = { x: touch.clientX, y: touch.clientY }; }} onTouchCancel={() => { careerTouch.current = null; }} onTouchEnd={event => { const start = careerTouch.current; careerTouch.current = null; if (!start) return; const touch = event.changedTouches[0]; const dx = touch.clientX - start.x; const dy = touch.clientY - start.y; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) moveCareer(dx < 0 ? 1 : -1); }}>
+            <div className="career-slide-track" style={{ transform: `translateX(-${activeRole * 100}%)` }}>
+              {roles.map((item, index) => <article className="career-slide" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${roles.length}: ${item.company}`} aria-hidden={activeRole !== index} inert={activeRole !== index} key={item.company}>
+                <div className="career-slide-heading"><div><p className="chapter-kicker">CHAPTER 0{index + 1} · {item.year}</p><h3>{item.company}</h3><p className="career-role">{item.role}</p></div><span className="career-slide-number" aria-hidden="true">0{index + 1}</span></div>
+                <div className="chapter-details"><div className="chapter-overview"><p className="chapter-kicker">THE CHAPTER</p><p className="chapter-copy">{item.copy}</p><div className="tag-row">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div><ul className="chapter-highlights">{item.highlights.map((highlight, highlightIndex) => <li key={highlight}><span>0{highlightIndex + 1}</span><p>{highlight}</p></li>)}</ul></div>
+              </article>)}
             </div>
-          </article>)}
+          </div>
+          <div className="career-carousel-bottom"><p role="status" aria-live="polite" aria-atomic="true">0{activeRole + 1} / 0{roles.length} · {roles[activeRole].company}</p><span>SWIPE OR USE THE ARROWS</span></div>
         </div>
       </section>
 

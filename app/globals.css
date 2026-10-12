@@ -93,3 +93,41 @@ button:focus-visible,a:focus-visible{outline:2px solid #aad9ff;outline-offset:5p
   .chapter-highlights { grid-template-columns:minmax(0,1fr); gap:10px; }
   .chapter-highlights li { padding:15px; }
 }
+
+.career-carousel { margin-top:50px; min-width:0; }
+.career-carousel-nav { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:20px; }
+.career-chapter-pickers { display:flex; gap:10px; min-width:0; }
+.career-chapter-pickers button { display:flex; align-items:center; gap:12px; border:1px solid var(--line); border-radius:8px; background:#080c13; color:#8697ae; padding:13px 16px; cursor:pointer; }
+.career-chapter-pickers button span { font:11px "Space Mono"; }
+.career-chapter-pickers button small { font:9px "Space Mono"; }
+.career-chapter-pickers button.active { border-color:#377abf; color:#a8d2ff; background:#0b2038; }
+.career-arrows { display:flex; gap:10px; }
+.career-arrows button { width:44px; height:44px; border-radius:50%; border:1px solid #315170; background:#0a1421; color:#b1d7ff; font-size:22px; cursor:pointer; }
+.career-carousel button:hover { border-color:var(--electric); }
+.career-carousel button:focus-visible { outline:2px solid var(--electric); outline-offset:4px; }
+.career-slide-window { overflow:hidden; border:1px solid #2765a7; border-radius:16px; background:linear-gradient(120deg,#0b192b,#080c13 65%); touch-action:pan-y; }
+.career-slide-track { display:flex; align-items:stretch; transition:transform .55s cubic-bezier(.22,1,.36,1); }
+.career-slide { flex:0 0 100%; min-width:0; padding:34px; }
+.career-slide-heading { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-bottom:28px; }
+.career-slide-heading h3 { font-size:clamp(23px,3vw,35px); letter-spacing:-.04em; line-height:1.2; margin:0; }
+.career-role { margin:12px 0 0; color:#a2b5cc; font-size:14px; line-height:1.6; }
+.career-slide-number { color:#28527f; font:clamp(42px,6vw,72px) "Space Mono"; }
+.career-slide .chapter-details { margin:0; padding-bottom:0; }
+.career-carousel-bottom { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:18px; color:#72839b; font:9px "Space Mono"; line-height:1.7; }
+.career-carousel-bottom p { margin:0; color:#a2b5cc; }
+@media(max-width:600px) {
+ .career-carousel { margin-top:34px; }
+ .career-carousel-nav { gap:10px; }
+ .career-chapter-pickers { gap:7px; }
+ .career-chapter-pickers button { padding:12px; }
+ .career-chapter-pickers button small { display:none; }
+ .career-arrows { gap:7px; }
+ .career-arrows button { width:38px; height:38px; }
+ .career-slide { padding:24px 18px; }
+ .career-slide-heading { align-items:flex-start; gap:12px; }
+ .career-slide-number { font-size:34px; }
+ .career-slide-heading .chapter-kicker { font-size:8px; line-height:1.7; }
+ .career-role { font-size:12px; }
+ .career-carousel-bottom { flex-wrap:wrap; }
+}
+@media(prefers-reduced-motion:reduce) { .career-slide-track { transition:none; } }
