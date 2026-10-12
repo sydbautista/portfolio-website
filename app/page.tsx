@@ -74,8 +74,8 @@ const icon = (slug: string) => `https://cdn.jsdelivr.net/gh/devicons/devicon@lat
 const stackGroups = [
   { name: "Interfaces", items: [{ name: "Angular", icon: icon("angular") }, { name: "React", icon: icon("react") }, { name: "Vue.js", icon: icon("vuejs") }, { name: "Blazor", icon: icon("blazor") }, { name: "Tailwind CSS", icon: icon("tailwindcss") }] },
   { name: "Logic", items: [{ name: "C#", icon: icon("csharp") }, { name: "Java", icon: icon("java") }, { name: "Python", icon: icon("python") }, { name: ".NET", icon: icon("dotnetcore") }, { name: "Spring Boot", icon: icon("spring") }] },
-  { name: "Intelligence", items: [{ name: "Semantic Kernel" }, { name: "Azure OpenAI", icon: icon("azure") }, { name: "D3.js", icon: icon("d3js") }, { name: "OCR" }] },
-  { name: "Cloud + Quality", items: [{ name: "AWS", icon: icon("amazonwebservices") }, { name: "Azure", icon: icon("azure") }, { name: "GitHub", icon: icon("github") }, { name: "Checkmarx" }, { name: "Snyk" }] },
+  { name: "Intelligence", items: [{ name: "Semantic Kernel", icon: "/icons/semantic-kernel.svg" }, { name: "Azure OpenAI", icon: icon("azure") }, { name: "D3.js", icon: icon("d3js") }, { name: "OCR", icon: "/icons/ocr.svg" }] },
+  { name: "Cloud + Quality", items: [{ name: "Azure", icon: icon("azure") }, { name: "GitHub", icon: "/icons/github.svg" }, { name: "Checkmarx", icon: "/icons/checkmarx.svg" }, { name: "Snyk", icon: "/icons/snyk.svg" }] },
 ];
 
 function Arrow({ direction = "right" }: { direction?: "left" | "right" }) {

@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Syd Bautista — UI Systems Engineer",
   description: "Front-end specialist engineering scalable systems, intuitive products, and intelligent digital experiences.",
-  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+  icons: { icon: "/favicon.svg?v=sb", shortcut: "/favicon.svg?v=sb" },
   openGraph: {
     title: "Syd Bautista — UI Systems Engineer",
     description: "I engineer the way ideas feel.",
