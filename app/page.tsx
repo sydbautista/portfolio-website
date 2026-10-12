@@ -174,7 +174,8 @@ export default function Home() {
         <h2>Let’s build something<br /><span>people remember.</span></h2>
         <p className="footer-copy">Open to ambitious products, thoughtful teams, and problems worth solving.</p>
         <div className="footer-actions"><a className="primary-button" href="mailto:sydbautista05@gmail.com">Email me <Arrow /></a><a className="outline-button" href="https://www.linkedin.com/in/sydbautista/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
-        <div className="footer-bottom"><a href="#top" className="monogram">SB<span>.</span></a><p>© 2026 SYD BAUTISTA · MANDALUYONG, PH</p><a href="#top">BACK TO TOP ↑</a></div>
+        <div className="footer-bottom"><a href="#top" className="monogram">SB<span>.</span></a><a href="#top" onClick={(event) => { event.preventDefault(); window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" }); }}>BACK TO TOP ↑</a></div>
+        <p className="footer-copyright">© 2026 Syd Bautista. All rights reserved.</p>
       </footer>
     </main>
   );
