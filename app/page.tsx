@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import StoryAdventure from "./story-adventure";
 import { PropertyPreview, SkinPreview } from "./project-previews";
 
 const roles = [
@@ -86,14 +85,6 @@ function Arrow({ direction = "right" }: { direction?: "left" | "right" }) {
 export default function Home() {
   const [activeRole, setActiveRole] = useState(2);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [adventureOpen, setAdventureOpen] = useState(false);
-
-  useEffect(() => {
-    const openFromHash = () => { if (window.location.hash === "#play") setAdventureOpen(true); };
-    openFromHash();
-    window.addEventListener("hashchange", openFromHash);
-    return () => window.removeEventListener("hashchange", openFromHash);
-  }, []);
 
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
@@ -113,7 +104,6 @@ export default function Home() {
           <a href="#story" onClick={() => setMenuOpen(false)}>Story</a>
           <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
           <a href="#stack" onClick={() => setMenuOpen(false)}>Stack</a>
-          <a href="#play" onClick={() => { setMenuOpen(false); setAdventureOpen(true); }}>Adventure</a>
           <a className="nav-cta" href="https://www.linkedin.com/in/sydbautista/" target="_blank" rel="noreferrer">View LinkedIn <span aria-hidden="true">↗</span></a>
         </div>
       </nav>
@@ -124,7 +114,7 @@ export default function Home() {
           <p className="eyebrow">UI SYSTEMS ENGINEER · MANILA</p>
           <h1>I engineer the<br /><span>way ideas feel.</span></h1>
           <p className="hero-intro">I’m Syd Bautista — a front-end specialist building scalable systems, intuitive products, and intelligent experiences.</p>
-          <div className="hero-actions"><a className="primary-button" href="#work">Explore my work <Arrow /></a><a className="text-link" href="#play" onClick={() => setAdventureOpen(true)}>Explore my story <span aria-hidden="true">🚀</span></a></div>
+          <div className="hero-actions"><a className="primary-button" href="#work">Explore my work <Arrow /></a><a className="text-link" href="#story">Follow the story <span aria-hidden="true">↓</span></a></div>
         </div>
         <div className="scroll-cue"><span>SCROLL TO EXPLORE</span><i /></div>
       </section>
@@ -177,11 +167,6 @@ export default function Home() {
         </div>
         <div className="learning" data-reveal><span className="pulse" /><p>CURRENTLY EXPLORING</p><strong>Deeper React patterns · Semantic Kernel · Applied Python</strong></div>
       </section>
-
-      <details className="optional-adventure" id="play" open={adventureOpen} onToggle={event => setAdventureOpen(event.currentTarget.open)}>
-        <summary><div><p className="section-index">05 / OPTIONAL SIDE QUEST</p><h2>Explore my story <span aria-hidden="true">🚀</span></h2><p>A short spaceship adventure through my career, at your own pace.</p></div><span className="adventure-toggle" aria-hidden="true">{adventureOpen ? "Close adventure −" : "Open adventure +"}</span></summary>
-        {adventureOpen && <StoryAdventure />}
-      </details>
 
       <footer>
         <div className="footer-glow" />
