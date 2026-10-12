@@ -50,8 +50,12 @@ button:focus-visible,a:focus-visible{outline:2px solid #aad9ff;outline-offset:5p
 @media(prefers-reduced-motion:reduce){.face-scan-line{animation:none;top:45%}}
 
 .query-result td { font-variant-numeric:tabular-nums; }
-.query-updated-rows { animation:query-refresh .65s ease-out; }
-@keyframes query-refresh { from { opacity:.35; } to { opacity:1; } }
+.query-moving-rows tr { height:32px; background:#fff; }
+.query-moving-rows td { height:32px; padding:0 9px; line-height:31px; }
+.query-moving-rows tr:first-child { animation:query-row-down 8s ease-in-out infinite; }
+.query-moving-rows tr:last-child { animation:query-row-up 8s ease-in-out infinite; }
+@keyframes query-row-down { 0%,20%,100% { transform:translateY(0); } 45%,70% { transform:translateY(64px); } }
+@keyframes query-row-up { 0%,20%,100% { transform:translateY(0); } 45%,70% { transform:translateY(-64px); } }
 .property-search-radius { transform-box:fill-box; transform-origin:center; animation:search-radius-breathe 7s ease-in-out infinite; }
 @keyframes search-radius-breathe { 0%,100% { transform:scale(.55); } 50% { transform:scale(1); } }
-@media(prefers-reduced-motion:reduce) { .property-search-radius,.query-updated-rows { animation:none; } }
+@media(prefers-reduced-motion:reduce) { .property-search-radius,.query-moving-rows tr { animation:none; } }

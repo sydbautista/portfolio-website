@@ -1,29 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-const querySamples = [
-  [[250, 295], [400, 448], [500, 540]],
-  [[260, 312], [420, 483], [520, 572]],
-  [[275, 319], [440, 484], [550, 616]],
+const queryRows = [
+  { region: "Asia Pacific", q1: 250, q2: 295, growth: 18 },
+  { region: "Europe", q1: 400, q2: 448, growth: 12 },
+  { region: "North America", q1: 500, q2: 540, growth: 8 },
 ];
 
 export function QueryResults() {
-  const [sample, setSample] = useState(0);
-  useEffect(() => {
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let timer: ReturnType<typeof setInterval> | undefined;
-    const sync = () => {
-      clearInterval(timer);
-      if (!preference.matches) timer = setInterval(() => {
-        if (!document.hidden) setSample(current => (current + 1) % querySamples.length);
-      }, 4500);
-    };
-    sync();
-    preference.addEventListener("change", sync);
-    return () => { clearInterval(timer); preference.removeEventListener("change", sync); };
-  }, []);
-  return <div className="query-result"><div className="query-result-caption"><b>Quarterly growth</b><span>3 rows · Sample data</span></div><table><thead><tr><th>Region</th><th>Q1 sales</th><th>Q2 sales</th><th>Growth</th></tr></thead><tbody key={sample} className="query-updated-rows">{querySamples[sample].map(([q1, q2], index) => <tr key={index}><td>{["Asia Pacific", "Europe", "North America"][index]}</td><td>${q1}K</td><td>${q2}K</td><td>+{Math.round((q2 - q1) / q1 * 100)}%</td></tr>)}</tbody></table></div>;
+  return <div className="query-result"><div className="query-result-caption"><b>Quarterly growth</b><span>3 rows · Sample data</span></div><table><thead><tr><th>Region</th><th>Q1 sales</th><th>Q2 sales</th><th>Growth</th></tr></thead><tbody className="query-moving-rows">{queryRows.map(row => <tr key={row.region}><td>{row.region}</td><td>${row.q1}K</td><td>${row.q2}K</td><td>+{row.growth}%</td></tr>)}</tbody></table></div>;
 }
 
 function WindowBar({ title }: { title: string }) {
