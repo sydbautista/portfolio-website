@@ -8,6 +8,7 @@ const roles = [
     year: "2016 — 2019",
     role: "Application Systems Engineer",
     company: "Fujitsu Philippines",
+    logo: "/companies/fujitsu.svg",
     copy: "Led a cross-functional team from responsive AngularJS interfaces through EWS-powered integrations and automated testing.",
     tags: ["AngularJS", "Java", "EWS", "Selenium"],
     highlights: ["Led a cross-functional delivery team", "Designed responsive admin and user experiences", "Built EWS APIs for scheduling and notes", "Introduced Selenium and unit-test automation"],
@@ -16,14 +17,16 @@ const roles = [
     year: "2019 — 2022",
     role: "Full Stack Developer",
     company: "DXC Technology",
+    logo: "/companies/dxc.png",
     copy: "Built progressive web apps, data visualization tools, and scalable full-stack platforms while guiding multiple delivery teams.",
     tags: ["Angular", "Spring Boot", "D3.js", "Azure"],
     highlights: ["Delivered client and internal progressive web apps", "Built data processing and visualization experiences", "Guided scalable solutions across multiple teams", "Created documentation that accelerated onboarding"],
   },
   {
     year: "2022 — NOW",
-    role: "UI Systems Engineer",
+    role: "Senior Software Analyst",
     company: "Willis Towers Watson",
+    logo: "/companies/wtw.svg",
     copy: "Shapes front-end architecture, shared component systems, performance, and application security across enterprise products.",
     tags: ["Angular", "Blazor", ".NET", "Design systems"],
     highlights: ["Leads front-end architecture and framework strategy", "Created reusable Angular modules and component libraries", "Partners with UX and backend teams on performance", "Resolves security findings across the delivery lifecycle"],
@@ -145,8 +148,9 @@ export default function Home() {
           <div className="career-slide-window" onTouchStart={event => { const touch = event.touches[0]; careerTouch.current = { x: touch.clientX, y: touch.clientY }; }} onTouchCancel={() => { careerTouch.current = null; }} onTouchEnd={event => { const start = careerTouch.current; careerTouch.current = null; if (!start) return; const touch = event.changedTouches[0]; const dx = touch.clientX - start.x; const dy = touch.clientY - start.y; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) moveCareer(dx < 0 ? 1 : -1); }}>
             <div className="career-slide-track" style={{ transform: `translateX(-${activeRole * 100}%)` }}>
               {roles.map((item, index) => <article className="career-slide" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${roles.length}: ${item.company}`} aria-hidden={activeRole !== index} inert={activeRole !== index} key={item.company}>
-                <div className="career-slide-heading"><div><p className="chapter-kicker">CHAPTER 0{index + 1} · {item.year}</p><h3>{item.company}</h3><p className="career-role">{item.role}</p></div><span className="career-slide-number" aria-hidden="true">0{index + 1}</span></div>
-                <div className="chapter-details"><div className="chapter-overview"><p className="chapter-kicker">THE CHAPTER</p><p className="chapter-copy">{item.copy}</p><div className="tag-row">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div><ul className="chapter-highlights">{item.highlights.map((highlight, highlightIndex) => <li key={highlight}><span>0{highlightIndex + 1}</span><p>{highlight}</p></li>)}</ul></div>
+                <div className="mission-topbar"><span><i /> EXPERIENCE LOG / 0{index + 1}</span><span>{index === 2 ? "CURRENT CHAPTER" : "COMPLETED CHAPTER"}</span></div>
+                <div className="career-slide-heading"><div><p className="chapter-kicker">{item.year} · CAREER ORBIT 0{index + 1}</p><h3>{item.company}</h3><p className="career-role">{item.role}</p></div><div className="company-orbit"><div className="company-logo-tile"><img src={item.logo} alt={`${item.company} logo`} /></div><span>ORBIT 0{index + 1}</span></div></div>
+                <div className="chapter-details"><div className="chapter-overview"><p className="chapter-kicker">MISSION OVERVIEW</p><p className="chapter-copy">{item.copy}</p><p className="mission-tools-label">TOOLS ON BOARD</p><div className="tag-row">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div><div className="mission-impact"><p className="chapter-kicker">IMPACT LOG</p><ul className="chapter-highlights">{item.highlights.map((highlight, highlightIndex) => <li key={highlight}><span>0{highlightIndex + 1}</span><p>{highlight}</p></li>)}</ul></div></div>
               </article>)}
             </div>
           </div>
