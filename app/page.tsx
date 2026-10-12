@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PropertyPreview, SkinPreview } from "./project-previews";
+import { PropertyPreview, SkinPreview, QueryResults } from "./project-previews";
 
 const roles = [
   {
@@ -45,7 +45,7 @@ const projects = [
         <div className="query-chatbox"><span>YOUR QUESTION</span><p>Show quarterly growth by region</p><div><small>Natural language → SQL</small><span className="query-send">↑</span></div></div>
         <div className="query-response"><span className="query-assistant">✦</span><div><b>Here’s the quarterly breakdown.</b><p>I compared Q1 and Q2 sales across three regions.</p></div></div>
         <div className="query-source-tables"><span>TABLES USED</span><div><span>▦ Sales</span><span>▦ Regions</span><span>▦ Quarters</span></div></div>
-        <div className="query-result"><div className="query-result-caption"><b>Quarterly growth</b><span>3 rows · Sample data</span></div><table><thead><tr><th>Region</th><th>Q1 sales</th><th>Q2 sales</th><th>Growth</th></tr></thead><tbody><tr><td>Asia Pacific</td><td>$250K</td><td>$295K</td><td>+18%</td></tr><tr><td>Europe</td><td>$400K</td><td>$448K</td><td>+12%</td></tr><tr><td>North America</td><td>$500K</td><td>$540K</td><td>+8%</td></tr></tbody></table></div>
+        <QueryResults />
         <div className="query-complete"><span>✓ Query complete</span><span>Read-only results</span></div>
       </div>
     </div>,

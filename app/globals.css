@@ -48,3 +48,10 @@ button:focus-visible,a:focus-visible{outline:2px solid #aad9ff;outline-offset:5p
 @keyframes face-analyze{0%,100%{top:28%}50%{top:72%}}
 @media(max-width:800px){.website-preview{width:92%;transform:none;margin:35px 0}.project-grid .project-visual,.project-orbit .project-visual{min-height:510px}.property-map-layout{grid-template-columns:100px minmax(0,1fr)}.property-filters{padding:14px 9px}.filter-pills>span{padding:5px}.property-analytics{padding:13px;gap:12px}.condo-card{left:5%;right:5%;gap:7px;grid-template-columns:40px 1fr;padding:6px}.condo-card b{font-size:8px}.condo-card p{font-size:5px}.condo-illustration{height:68px}.skin-workspace{padding:15px}.skin-screening-grid{gap:9px}.screening-summary{padding:12px 8px}.skin-heading b{font-size:18px}.mini-app-nav{padding:0 14px}.skin-heading small{font-size:5px}.skin-catalog{gap:6px}.skin-product>b{font-size:6px}.skin-catalog-heading>span{font-size:5px}}
 @media(prefers-reduced-motion:reduce){.face-scan-line{animation:none;top:45%}}
+
+.query-result td { font-variant-numeric:tabular-nums; }
+.query-updated-rows { animation:query-refresh .65s ease-out; }
+@keyframes query-refresh { from { opacity:.35; } to { opacity:1; } }
+.property-search-radius { transform-box:fill-box; transform-origin:center; animation:search-radius-breathe 7s ease-in-out infinite; }
+@keyframes search-radius-breathe { 0%,100% { transform:scale(.55); } 50% { transform:scale(1); } }
+@media(prefers-reduced-motion:reduce) { .property-search-radius,.query-updated-rows { animation:none; } }

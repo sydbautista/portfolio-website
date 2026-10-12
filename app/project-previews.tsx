@@ -1,3 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+const querySamples = [
+  [[250, 295], [400, 448], [500, 540]],
+  [[260, 312], [420, 483], [520, 572]],
+  [[275, 319], [440, 484], [550, 616]],
+];
+
+export function QueryResults() {
+  const [sample, setSample] = useState(0);
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer: ReturnType<typeof setInterval> | undefined;
+    const sync = () => {
+      clearInterval(timer);
+      if (!preference.matches) timer = setInterval(() => {
+        if (!document.hidden) setSample(current => (current + 1) % querySamples.length);
+      }, 4500);
+    };
+    sync();
+    preference.addEventListener("change", sync);
+    return () => { clearInterval(timer); preference.removeEventListener("change", sync); };
+  }, []);
+  return <div className="query-result"><div className="query-result-caption"><b>Quarterly growth</b><span>3 rows · Sample data</span></div><table><thead><tr><th>Region</th><th>Q1 sales</th><th>Q2 sales</th><th>Growth</th></tr></thead><tbody key={sample} className="query-updated-rows">{querySamples[sample].map(([q1, q2], index) => <tr key={index}><td>{["Asia Pacific", "Europe", "North America"][index]}</td><td>${q1}K</td><td>${q2}K</td><td>+{Math.round((q2 - q1) / q1 * 100)}%</td></tr>)}</tbody></table></div>;
+}
+
 function WindowBar({ title }: { title: string }) {
   return <div className="query-window-bar"><span className="window-dots"><i /><i /><i /></span><span>{title}</span><span className="query-demo-label">DEMO</span></div>;
 }
@@ -9,8 +37,8 @@ export function PropertyPreview() {
     <div className="property-map-layout">
       <aside className="property-filters"><div className="mini-panel-title">Filters <span>☷</span></div><small>LOCATION</small><div className="fake-field">Mandaluyong <span>⌄</span></div><small>PROPERTY TYPE</small><div className="filter-pills"><span className="selected">Condo</span><span>House</span></div><small>PRICE RANGE</small><p>₱4M — ₱8M</p><div className="fake-slider"><i /><i /></div><small>BEDROOMS</small><div className="filter-pills"><span>1</span><span className="selected">2</span><span>3+</span></div><div className="fake-apply">Show 12 properties</div></aside>
       <div className="property-map">
-        <svg viewBox="0 0 300 290" preserveAspectRatio="xMidYMid slice"><rect width="300" height="290" fill="#edf0e9" /><g fill="#dfe7d8"><path d="M10 8H89V60H10Z"/><path d="M180 12H290V68H180Z"/><path d="M20 155H95V232H20Z"/><path d="M208 163H286V259H208Z"/></g><path d="M-20 252 Q65 200 130 236 T320 205" fill="none" stroke="#b9dfe9" strokeWidth="29"/><g stroke="#fff" strokeWidth="11" fill="none"><path d="M-20 90L320 152"/><path d="M104 -10L144 320"/><path d="M222 -10L184 320"/><path d="M-10 180L320 72"/></g><g stroke="#e0c98b" strokeWidth="3" fill="none"><path d="M-20 90L320 152"/><path d="M104 -10L144 320"/></g><circle cx="161" cy="111" r="68" fill="#2676c21c" stroke="#2676c2" strokeWidth="1.5" strokeDasharray="4 3"/><g fill="#8c9b91" fontSize="8" fontFamily="Arial"><text x="14" y="77">GREENFIELD</text><text x="184" y="47">ORTIGAS</text><text x="27" y="279">PASIG RIVER</text></g><circle cx="116" cy="149" r="5" fill="#fff" stroke="#4386b5" strokeWidth="2"/><circle cx="206" cy="87" r="5" fill="#fff" stroke="#4386b5" strokeWidth="2"/></svg>
-        <span className="map-radius-label">2 km search radius</span><div className="condo-pin">⌂</div>
+        <svg viewBox="0 0 300 290" preserveAspectRatio="xMidYMid slice"><rect width="300" height="290" fill="#edf0e9" /><g fill="#dfe7d8"><path d="M10 8H89V60H10Z"/><path d="M180 12H290V68H180Z"/><path d="M20 155H95V232H20Z"/><path d="M208 163H286V259H208Z"/></g><path d="M-20 252 Q65 200 130 236 T320 205" fill="none" stroke="#b9dfe9" strokeWidth="29"/><g stroke="#fff" strokeWidth="11" fill="none"><path d="M-20 90L320 152"/><path d="M104 -10L144 320"/><path d="M222 -10L184 320"/><path d="M-10 180L320 72"/></g><g stroke="#e0c98b" strokeWidth="3" fill="none"><path d="M-20 90L320 152"/><path d="M104 -10L144 320"/></g><circle className="property-search-radius" cx="161" cy="111" r="68" fill="#2676c21c" stroke="#2676c2" strokeWidth="1.5" strokeDasharray="4 3"/><g fill="#8c9b91" fontSize="8" fontFamily="Arial"><text x="14" y="77">GREENFIELD</text><text x="184" y="47">ORTIGAS</text><text x="27" y="279">PASIG RIVER</text></g><circle cx="116" cy="149" r="5" fill="#fff" stroke="#4386b5" strokeWidth="2"/><circle cx="206" cy="87" r="5" fill="#fff" stroke="#4386b5" strokeWidth="2"/></svg>
+        <span className="map-radius-label">Up to 2 km radius</span><div className="condo-pin">⌂</div>
         <div className="condo-card"><div className="condo-illustration"><span/><span/><span/></div><div><small>FEATURED CONDO</small><b>Parkside Residences</b><p>2 beds · 58 m² · Mandaluyong</p><strong>₱6.2M <span>Sample listing</span></strong></div></div>
         <div className="map-zoom">+<hr/>−</div>
       </div>
