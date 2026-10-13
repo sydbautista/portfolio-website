@@ -48,11 +48,11 @@ button:focus-visible,a:focus-visible{outline:2px solid #aad9ff;outline-offset:5p
 
 .query-table { font-size:8px; white-space:nowrap; overflow:hidden; }
 .query-grid-row { display:grid; grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr)); min-height:32px; background:#fff; }
-.query-grid-row>span { display:flex; align-items:center; justify-content:flex-end; padding:0 9px; border-top:1px solid #e8edf3; font-variant-numeric:tabular-nums; }
+.query-grid-row>span { display:flex; align-items:center; justify-content:flex-end; padding:0 9px; border-top:1px solid #e8edf3; color:#37465b; font-variant-numeric:tabular-nums; }
 .query-grid-row>span:first-child { justify-content:flex-start; }
 .query-grid-row>span:last-child { color:#147d60; }
 .query-grid-head { min-height:35px; background:#f8fafc; color:#52647b; font-size:7px; }
-.query-grid-head>span:last-child { color:inherit; }
+.query-grid-head>span { color:#52647b; }
 .query-row-down { animation:query-row-down 8s ease-in-out infinite; }
 .query-row-up { animation:query-row-up 8s ease-in-out infinite; }
 @keyframes query-row-down { 0%,20%,100% { transform:translateY(0); } 45%,70% { transform:translateY(64px); } }
