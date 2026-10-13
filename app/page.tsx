@@ -24,7 +24,7 @@ const roles = [
   },
   {
     year: "2022 — NOW",
-    role: "Senior Software Analyst",
+    role: "Senior Systems Analyst",
     company: "Willis Towers Watson",
     logo: "/companies/wtw.svg",
     copy: "Shapes front-end architecture, shared component systems, performance, and application security across enterprise products.",
@@ -116,9 +116,9 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-glow" aria-hidden="true"><div className="core"><span>SB</span></div><i className="orbit one" /><i className="orbit two" /><i className="orbit three" /></div>
         <div className="hero-copy">
-          <p className="eyebrow">UI SYSTEMS ENGINEER · MANILA</p>
+          <p className="eyebrow">FULL-STACK WEB DEVELOPER · SYSTEMS ANALYST · MANILA</p>
           <h1>I engineer the<br /><span>way ideas feel.</span></h1>
-          <p className="hero-intro">I’m Syd Bautista — a front-end specialist building scalable systems, intuitive products, and intelligent experiences.</p>
+          <p className="hero-intro">I’m Syd Bautista — a full-stack web developer and systems analyst building polished interfaces, reliable backends, and the infrastructure that connects them.</p>
           <div className="hero-actions"><a className="primary-button" href="#work">Explore my work <Arrow /></a><a className="text-link" href="#story">Follow the story <span aria-hidden="true">↓</span></a></div>
         </div>
         <div className="scroll-cue"><span>SCROLL TO EXPLORE</span><i /></div>
