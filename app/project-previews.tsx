@@ -7,7 +7,7 @@ const queryRows = [
 ];
 
 export function QueryResults() {
-  return <div className="query-result"><div className="query-result-caption"><b>Quarterly growth</b><span>3 rows · Sample data</span></div><table><thead><tr><th>Region</th><th>Q1 sales</th><th>Q2 sales</th><th>Growth</th></tr></thead><tbody className="query-moving-rows">{queryRows.map(row => <tr key={row.region}><td>{row.region}</td><td>${row.q1}K</td><td>${row.q2}K</td><td>+{row.growth}%</td></tr>)}</tbody></table></div>;
+  return <div className="query-result"><div className="query-result-caption"><b>Quarterly growth</b><span>3 rows · Sample data</span></div><div className="query-table" role="table" aria-label="Sample quarterly regional growth"><div className="query-grid-row query-grid-head" role="row"><span role="columnheader">Region</span><span role="columnheader">Q1 sales</span><span role="columnheader">Q2 sales</span><span role="columnheader">Growth</span></div><div className="query-grid-body" role="rowgroup">{queryRows.map((row, index) => <div className={`query-grid-row ${index === 0 ? "query-row-down" : index === queryRows.length - 1 ? "query-row-up" : ""}`} role="row" key={row.region}><span role="cell">{row.region}</span><span role="cell">${row.q1}K</span><span role="cell">${row.q2}K</span><span role="cell">+{row.growth}%</span></div>)}</div></div></div>;
 }
 
 function WindowBar({ title }: { title: string }) {

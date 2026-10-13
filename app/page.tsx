@@ -87,6 +87,8 @@ function Arrow({ direction = "right" }: { direction?: "left" | "right" }) {
 
 export default function Home() {
   const [activeRole, setActiveRole] = useState(2);
+  const [activeTech, setActiveTech] = useState<string | null>(null);
+  const techAnimationTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const careerTouch = useRef<{ x: number; y: number } | null>(null);
   const moveCareer = (direction: number) => setActiveRole(current => (current + direction + roles.length) % roles.length);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -99,6 +101,16 @@ export default function Home() {
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => () => {
+    if (techAnimationTimer.current) window.clearTimeout(techAnimationTimer.current);
+  }, []);
+
+  const animateTech = (name: string) => {
+    if (techAnimationTimer.current) window.clearTimeout(techAnimationTimer.current);
+    setActiveTech(name);
+    techAnimationTimer.current = window.setTimeout(() => setActiveTech(null), 700);
+  };
 
   return (
     <main>
@@ -169,7 +181,7 @@ export default function Home() {
       <section className="stack" id="stack">
         <div className="stack-heading" data-reveal><p className="section-index">04 / THE TOOLKIT</p><h2>A stack that adapts.<br /><span>A mindset that scales.</span></h2><p>Tools change. The ability to choose, connect, and shape them is the real technology.</p></div>
         <div className="stack-grid">
-          {stackGroups.map((group, index) => <div className="stack-group" key={group.name} data-reveal><div className="stack-number">0{index + 1}</div><h3>{group.name}</h3><div className="stack-items">{group.items.map(item => <div className={`tech-item ${item.icon ? "has-icon" : "text-only"}`} key={item.name}>{item.icon && <img src={item.icon} alt="" loading="lazy" />}<span>{item.name}</span><i aria-hidden="true" /></div>)}</div></div>)}
+          {stackGroups.map((group, index) => <div className="stack-group" key={group.name} data-reveal><div className="stack-number">0{index + 1}</div><h3>{group.name}</h3><div className="stack-items">{group.items.map(item => <button type="button" className={`tech-item ${item.icon ? "has-icon" : "text-only"} ${activeTech === item.name ? "is-tapped" : ""}`} aria-label={`Animate ${item.name}`} onClick={() => animateTech(item.name)} key={item.name}>{item.icon && <img src={item.icon} alt="" loading="lazy" />}<span>{item.name}</span><i aria-hidden="true" /></button>)}</div></div>)}
         </div>
         <div className="learning" data-reveal><span className="pulse" /><p>CURRENTLY EXPLORING</p><strong>Deeper React patterns · Semantic Kernel · Applied Python</strong></div>
       </section>
